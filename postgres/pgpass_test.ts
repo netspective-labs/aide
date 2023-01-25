@@ -2,7 +2,7 @@ import * as ta from "https://deno.land/std@0.173.0/testing/asserts.ts";
 import { fromFileUrl } from "https://deno.land/std@0.173.0/path/mod.ts";
 import $ from "https://deno.land/x/dax@0.24.1/mod.ts";
 
-Deno.test("pgpass.ts test --src ./pgpass.golden", async () => {
+Deno.test("pgpass test --src ./pgpass.golden", async () => {
   const pgpass = fromFileUrl(import.meta.resolve("./pgpass.ts"));
   const golden = fromFileUrl(import.meta.resolve("./pgpass.golden"));
 
@@ -15,7 +15,7 @@ conn has no descriptor preceding it. (line 45)`,
   );
 });
 
-Deno.test("pgpass.ts ls conn --src ./pgpass.golden", async () => {
+Deno.test("pgpass ls conn --src ./pgpass.golden", async () => {
   const pgpass = fromFileUrl(import.meta.resolve("./pgpass.ts"));
   const golden = fromFileUrl(import.meta.resolve("./pgpass.golden"));
 
@@ -26,7 +26,7 @@ MY_SPECIAL_DB2 Human-friendly description of database 2 [192.168.2.24:5033 pgDB2
   );
 });
 
-Deno.test("pgpass.ts env --src ./pgpass.golden", async () => {
+Deno.test("pgpass env --src ./pgpass.golden", async () => {
   const pgpass = fromFileUrl(import.meta.resolve("./pgpass.ts"));
   const golden = fromFileUrl(import.meta.resolve("./pgpass.golden"));
 

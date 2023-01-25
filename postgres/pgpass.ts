@@ -5,13 +5,13 @@ import * as path from "https://deno.land/std@0.173.0/path/mod.ts";
 import docopt from "https://deno.land/x/docopt@v1.0.7/mod.ts";
 import { Connection, parse } from "./pgpass-parse.ts";
 
-// TODO: `pgpass.ts env --var-name` and `pgpass.ts prepare <js-eval-expr>` uses
+// TODO: `pgpass env --var-name` and `pgpass prepare <js-eval-expr>` use
 //       unsafe `eval()` to format strings. This is unsafe on anything other
 //       trusted machines so be careful. Find a string replacement library to
 //       upgrade later.
 
-const version = "0.9.0";
-const cmd = path.basename(import.meta.url);
+const version = "0.1.0";
+const cmd = "pgpass";
 const pgPassFile = path.join(`${Deno.env.get("HOME")}`, ".pgpass");
 const doc = `
 Netspective Labs conventional .pgpass inspection.
@@ -42,46 +42,46 @@ Options:
 Help:
   To test if the .pgpass definitions parse properly:
 
-    pgpass.ts test
+    pgpass test
 
     If you get no results, the file is valid otherwise you'll get an issues list
 
   To see a list of all connections defined in .pgpass:
 
-    pgpass.ts ls conn
+    pgpass ls conn
 
   To generate an arbitrary string for a connection ID:
 
-    pgpass.ts prepare '\`\${conn.database}\`' --conn-id="GITLAB"
+    pgpass prepare '\`\${conn.database}\`' --conn-id="GITLAB"
 
     Be sure to use '\`...\`' where ... is a JS string literal type that can use:
       \${conn.host} \${String(conn.port)} \${conn.database} \${conn.username} \${conn.password}
 
   To generate \`psql\`-friendly parameters for a given connection:
 
-    pgpass.ts psql-fmt --conn-id="GITLAB"
+    pgpass psql-fmt --conn-id="GITLAB"
 
     You can use is like this:
 
-      psql \`pgpass.ts psql-fmt --conn-id="GITLAB"\`
-      pgcenter top \`pgpass.ts psql-fmt --conn-id="GITLAB"\`
+      psql \`pgpass psql-fmt --conn-id="GITLAB"\`
+      pgcenter top \`pgpass psql-fmt --conn-id="GITLAB"\`
 
   To generate psql or pgcenter commands that you can use as-is:
 
-    pgpass.ts psql --conn-id="GITLAB"
-    pgpass.ts pgcenter --conn-id="GITLAB"
+    pgpass psql --conn-id="GITLAB"
+    pgpass pgcenter --conn-id="GITLAB"
 
   To generate env vars for all pgpass connections using default naming convetion:
 
-    pgpass.ts env
+    pgpass env
 
   To generate env vars for all pgpass connections using custom prefix:
 
-    pgpass.ts env --var-name='\`MYPREFIX_\${varName}\`'
+    pgpass env --var-name='\`MYPREFIX_\${varName}\`'
 
   To generate env vars for specific pgpass connections without prefix:
 
-    pgpass.ts env --var-name='\`\${varName}\`' --conn-id="GITHUB" --conn-id="GITLAB"
+    pgpass env --var-name='\`\${varName}\`' --conn-id="GITHUB" --conn-id="GITLAB"
 
   NOTE: --conn-id is passed into \`new RegExp(connId)\` so you can use any parseable regex.
 `;
@@ -149,7 +149,7 @@ try {
 }
 
 if (args["--version"]) {
-  console.log(`pgpass.ts version ${version}`);
+  console.log(`pgpass version ${version}`);
   Deno.exit(0);
 }
 
