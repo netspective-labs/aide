@@ -38,7 +38,7 @@ other way:
 
 ```bash
 # .envrc configuration for unit testing
-export RF_SQL_SHELL_OSQUERYI_LOCATION="/usr/bin/osqueryi"
+export RF_SQL_SHELL_OSQUERYI_LOCATION=`whereis -b osqueryi  | awk '{print $2}'`
 export TESTVALID_PKC_PGUSER=gitlab_pkc_read_only
 export TESTVALID_PKC_PGPASSWORD=*****
 export GLTEST_PGUSER=gitlab_pkc_read_only
