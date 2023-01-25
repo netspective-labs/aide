@@ -1,6 +1,6 @@
 # Netspective Labs Aide
 
-[![codecov](https://codecov.io/gh/netspective-labs/factory/branch/main/graph/badge.svg?token=JK8J14Y5YY)](https://codecov.io/gh/netspective-labs/factory)
+[![codecov](https://codecov.io/gh/netspective-labs/aide/branch/main/graph/badge.svg?token=A25ZFVJBHA)](https://codecov.io/gh/netspective-labs/aide)
 
 `Aide` is Netspective Labs' helpers libraries monorepo. Sub-modules in this
 library (e.g. `cache`, `sql`, `git`, etc.) should generally be independent of
@@ -51,6 +51,8 @@ Then:
 direnv allow
 deno test -A --unstable
 ```
+
+[![Code Coverage](https://codecov.io/gh/netspective-labs/aide/branch/main/graphs/sunburst.svg?token=A25ZFVJBHA)](https://codecov.io/gh/netspective-labs/aide)
 
 ## Legacy
 
