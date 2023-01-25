@@ -1,0 +1,5 @@
+export RF_SQL_SHELL_OSQUERYI_LOCATION=`whereis -b osqueryi  | awk '{print $2}'`
+export PGTEST_PGUSER=`./postgres/pgpass.ts prepare 'conn.username' --conn-id="FCR_GITLAB_PKC"`
+export PGTEST_PGPASSWORD=`./postgres/pgpass.ts prepare 'conn.password' --conn-id="FCR_GITLAB_PKC"`
+export GLTEST_PGUSER=`./postgres/pgpass.ts prepare 'conn.username' --conn-id="FCR_GITLAB_PKC"`
+export GLTEST_PGPASSWORD=`./postgres/pgpass.ts prepare 'conn.password' --conn-id="FCR_GITLAB_PKC"`

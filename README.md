@@ -37,12 +37,12 @@ Assuming you're using `direnv`, add this to `.envrc` or set the variables some
 other way:
 
 ```bash
-# .envrc configuration for unit testing
+# .envrc configuration for unit testing, save PG passwords in ~/.pgpass and lookup using --conn-id
 export RF_SQL_SHELL_OSQUERYI_LOCATION=`whereis -b osqueryi  | awk '{print $2}'`
-export TESTVALID_PKC_PGUSER=gitlab_pkc_read_only
-export TESTVALID_PKC_PGPASSWORD=*****
-export GLTEST_PGUSER=gitlab_pkc_read_only
-export GLTEST_PGPASSWORD==*****
+export PGTEST_PGUSER=`./postgres/pgpass.ts prepare 'conn.username' --conn-id="FCR_GITLAB_PKC"`
+export PGTEST_PGPASSWORD=`./postgres/pgpass.ts prepare 'conn.password' --conn-id="FCR_GITLAB_PKC"`
+export GLTEST_PGUSER=`./postgres/pgpass.ts prepare 'conn.username' --conn-id="FCR_GITLAB_PKC"`
+export GLTEST_PGPASSWORD=`./postgres/pgpass.ts prepare 'conn.password' --conn-id="FCR_GITLAB_PKC"`
 ```
 
 Then:

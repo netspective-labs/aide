@@ -177,7 +177,7 @@ Deno.test("PostgreSQL invalid connection", async () => {
   pgDBi.close();
 });
 
-Deno.test("PostgreSQL valid connection from TESTVALID_PKC_* env with FS proxy", async () => {
+Deno.test("PostgreSQL valid connection from PGTEST_* env with FS proxy", async () => {
   // if we're running in GitHub Actions or other Continuous Integration (CI)
   // or Continuous Delivery (CD) environment then PostgreSQL won't be available
   // so don't fail the test case, just don't run it
@@ -189,7 +189,7 @@ Deno.test("PostgreSQL valid connection from TESTVALID_PKC_* env with FS proxy", 
 
   // pgdbcc retrieves database connnection config values from the environment
   const pgdbcc = mod.pgDbConnEnvConfig({
-    ens: (given) => `TESTVALID_PKC_${given}`,
+    ens: (given) => `PGTEST_${given}`,
   });
 
   const config = pgdbcc.configure({
@@ -206,7 +206,7 @@ Deno.test("PostgreSQL valid connection from TESTVALID_PKC_* env with FS proxy", 
   const pgco = pgdbcc.pgClientOptions(config);
   if (!pgco.user || !pgco.password) {
     console.error(
-      `Unable to test valid PostgreSQL connection, TESTVALID_PKC_PGUSER or TESTVALID_PKC_PGPASSWORD env vars missing`,
+      `Unable to test valid PostgreSQL connection, PGTEST_PGUSER or PGTEST_PGPASSWORD env vars missing`,
     );
     return;
   }
