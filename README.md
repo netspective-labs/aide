@@ -64,7 +64,9 @@ there first.
 ### Not migrated yet and why
 
 - `alasql` was being used for in-memory SQL and related code but we should use
-  SQLite's in-memory model now
+  SQLite's in-memory model now. NOTE: since
+  [AlaSQL 3.0](https://github.com/AlaSQL/alasql) has been released, check to see
+  if there's value in doing the migration.
 - `db` is a good Deno utility library for PostgreSQL client but no longer useful
   since Deno's NPM support affords many more, better, packages
 - `knowledge` is the start of a knowledge management IM but isn't universal yet
