@@ -54,6 +54,39 @@ deno install -A -f --unstable https://raw.githubusercontent.com/netspective-labs
 
 ### `pgpass` usage
 
+Start with:
+
+```bash
+pgpass --help
+```
+
+```
+Netspective Labs conventional .pgpass inspection.
+
+Usage:
+  pgpass ls conn [--src=<file>] [--no-color]
+  pgpass env [--src=<file>] [--no-export] [--var-name=<js-expr>] [--conn-id=<matcher>...] [--warn-no-descriptors]
+  pgpass prepare <js-eval-expr> --conn-id=<matcher>... [--all] [--src=<file>]
+  pgpass (psql-fmt|psql|pgcenter) --conn-id=<matcher>... [--all] [--src=<file>]
+  pgpass url --conn-id=<matcher>... [--all] [--src=<file>]
+  pgpass test [--src=<file>]
+  pgpass inspect [--src=<file>] [--mask-password] [--json]
+  pgpass -h | --help
+  pgpass --version
+
+Options:
+  -h --help               Show this screen.
+  --src=<file>            The source of .pgpass content [default: /home/snshah/.pgpass]
+  --no-export             Don't add 'export' clause to emitted env var lines
+  --var-name=<js-expr>    Env var name format [Default: `${conn.connDescr.id}_${varName}`]
+  --conn-id=<matcher>     Connection ID matching regular expression(s) using JS `new RegExp(connId)`
+  <js-eval-expr>          Javascript eval expression
+  --all                   Produce all matching connections, not just the first one
+  --warn-no-descriptors   Provide warning for which connections do not provide descriptors
+  --json                  Emit in strict JSON format
+  --version               Show version.
+```
+
 To test if the .pgpass definitions parse properly:
 
 ```bash
