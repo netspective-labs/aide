@@ -123,7 +123,7 @@ export async function srcDepsMutator<OrgRepo extends string>(
  * when remote (latest): https://raw.githubusercontent.com/netspective-labs/factory/main*
  * when remote (pinned): https://raw.githubusercontent.com/netspective-labs/factory/${tag}*
  */
-export async function resFactoryDepsMutator(
+export async function nlAideDepsMutator(
   srcDiscoveryStartPath: string,
   srcRelPathSupplier: (src: Required<d.DiscoverPathResult>) => string,
   options?: {
@@ -142,7 +142,7 @@ export async function resFactoryDepsMutator(
   },
 ) {
   const mutator = await srcDepsMutator({
-    orgRepo: "netspective-labs/factory",
+    orgRepo: "netspective-labs/aide",
     srcDiscoveryStartPath,
     srcRelPathSupplier,
     onSrcNotFound: options?.onSrcNotFound,
