@@ -175,3 +175,6 @@ parseable regex.
 - Use Deno compiler to
   [create single-binaries](https://deno.land/manual@v1.30.0/tools/compiler#compiling-executables)
   instead of requiring Deno installation?
+- `pgpass env --var-name` and `pgpass prepare <js-eval-expr>` use unsafe
+  `eval()` to format strings. This is unsafe on anything other trusted machines
+  so be careful. Find a string replacement library to upgrade later.
