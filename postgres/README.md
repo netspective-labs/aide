@@ -49,7 +49,7 @@ and then use `deno` to install the latest version of the binary:
 
 ```bash
 export NLA_VERSION=`curl -fsSL https://api.github.com/repos/netspective-labs/aide/tags | jq '.[0].name' -r`
-deno install -A -f --unstable https://raw.githubusercontent.com/netspective-labs/aide/${NLA_VERSION}/postgres/pgpass.ts >> $NLH_ASDF_LOG 2>&1
+deno install -A -f --unstable https://raw.githubusercontent.com/netspective-labs/aide/${NLA_VERSION}/postgres/pgpass.ts
 ```
 
 ### `pgpass` usage
