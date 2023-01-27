@@ -76,7 +76,7 @@ Usage:
 
 Options:
   -h --help               Show this screen.
-  --src=<file>            The source of .pgpass content [default: /home/snshah/.pgpass]
+  --src=<file>            The source of .pgpass content [default: $HOME/.pgpass]
   --no-export             Don't add 'export' clause to emitted env var lines
   --var-name=<js-expr>    Env var name format [Default: `${conn.connDescr.id}_${varName}`]
   --conn-id=<matcher>     Connection ID matching regular expression(s) using JS `new RegExp(connId)`
