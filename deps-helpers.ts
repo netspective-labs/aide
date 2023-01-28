@@ -5,7 +5,7 @@ import * as dt from "./task/doctor.ts";
 export async function srcDepsMutator<OrgRepo extends string>(
   args:
     & {
-      orgRepo: OrgRepo; // only "org/name" like "netspective-labs/factory"
+      orgRepo: OrgRepo; // only "org/name" like "netspective-labs/aide"
       srcRelPathSupplier: (src: Required<d.DiscoverPathResult>) => string;
       onSrcNotFound?: {
         gitHub?: {
@@ -41,7 +41,7 @@ export async function srcDepsMutator<OrgRepo extends string>(
     srcRelPath,
     isSandbox: (depsTs: string) => {
       // Test to see if any of the imports in deps.ts contains relative paths
-      // URIs such as ../netspective-labs/factory/ or ../github.com/netspective-labs/factory/.
+      // URIs such as ../netspective-labs/aide/ or ../github.com/netspective-labs/aide/.
       // If so, it means that the deps.ts refers to "sandbox" or "local"
       // Resource Factory modules.
       const origDepsTs = Deno.readTextFileSync(depsTs);
@@ -118,10 +118,10 @@ export async function srcDepsMutator<OrgRepo extends string>(
 
 /**
  * Instead of using multiple import maps, mutate the local deps.ts to point to
- * an appropriate set of https://github.com/netspective-labs/factory modules.
- * When local (mGit path conventions): ../../../github.com/netspective-labs/factory*
- * when remote (latest): https://raw.githubusercontent.com/netspective-labs/factory/main*
- * when remote (pinned): https://raw.githubusercontent.com/netspective-labs/factory/${tag}*
+ * an appropriate set of https://github.com/netspective-labs/aide modules.
+ * When local (mGit path conventions): ../../../github.com/netspective-labs/aide*
+ * when remote (latest): https://raw.githubusercontent.com/netspective-labs/aide/main*
+ * when remote (pinned): https://raw.githubusercontent.com/netspective-labs/aide/${tag}*
  */
 export async function nlAideDepsMutator(
   srcDiscoveryStartPath: string,
