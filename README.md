@@ -72,6 +72,11 @@ there first.
 - `knowledge` is the start of a knowledge management IM but isn't universal yet
 - `notification` was used by the old resFactory admin UI and probably not
   universal
+- `package` had an interesting idea for "micro bundling" (on a per-file "twin"
+  basis) but the future is [Vite](https://vitejs.dev/) and
+  [Rome](https://rome.tools/)
+  - `task/bundle-js.ts` wrapped `package` modules in `Taskfile`
+  - `task/transform-css.ts` wrapped `package` modules in `Taskfile`
 - `path` This is a tiny library and probably faster to just inline in code
 - `presentation` are a custom HTML components strategy but we should React, et.
   al.
