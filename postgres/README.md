@@ -179,6 +179,9 @@ parseable regex.
 - Provide Fish and Bash one-liners to use `pgpass` to generate combined SSH
   tunnel and, for example, `psql` in the same command. This would allow an
   almost-ready SASE or zero-trust security model?
+  - Consider adding a `{ sshTunnel: { port: xyz} }` to the descriptor so that we
+    can supply SSH tunnel port differently than local port in case there are any
+    port conflicts
 - Use Deno compiler to
   [create single-binaries](https://deno.land/manual@v1.30.0/tools/compiler#compiling-executables)
   instead of requiring Deno installation?
