@@ -67,7 +67,7 @@ Usage:
   pgpass ls conn [--src=<file>] [--no-color]
   pgpass env [--src=<file>] [--no-export] [--var-name=<js-expr>] [--conn-id=<matcher>...] [--warn-no-descriptors]
   pgpass prepare <js-eval-expr> --conn-id=<matcher>... [--all] [--src=<file>]
-  pgpass (psql-fmt|psql|pgcenter) --conn-id=<matcher>... [--all] [--src=<file>]
+  pgpass (psql-fmt|psql|pgcenter|pgready) --conn-id=<matcher>... [--all] [--src=<file>]
   pgpass url --conn-id=<matcher>... [--all] [--src=<file>]
   pgpass test [--src=<file>]
   pgpass inspect [--src=<file>] [--mask-password] [--json]
@@ -99,6 +99,13 @@ To see a list of all connections defined in .pgpass:
 
 ```bash
 pgpass ls conn
+```
+
+To test PostgreSQL server availability for all connections defined in .pgpass:
+
+```bash
+pgpass pgready --conn-id=".*" --all
+pgpass pgready --conn-id=".*" --all | bash
 ```
 
 To generate an arbitrary string for a connection ID:
