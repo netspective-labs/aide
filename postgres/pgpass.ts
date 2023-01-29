@@ -20,7 +20,7 @@ Usage:
   ${cmd} ls conn [--src=<file>] [--no-color]
   ${cmd} env [--src=<file>] [--no-export] [--var-name=<js-expr>] [--conn-id=<matcher>...] [--warn-no-descriptors]
   ${cmd} prepare <js-eval-expr> --conn-id=<matcher>... [--all] [--src=<file>]
-  ${cmd} (psql-fmt|psql|pgcenter) --conn-id=<matcher>... [--all] [--src=<file>]
+  ${cmd} (psql-fmt|psql|pgcenter|pgready) --conn-id=<matcher>... [--all] [--src=<file>]
   ${cmd} url --conn-id=<matcher>... [--all] [--src=<file>]
   ${cmd} test [--src=<file>]
   ${cmd} inspect [--src=<file>] [--mask-password] [--json]
@@ -50,6 +50,11 @@ Help:
 
     pgpass ls conn
 
+  To test PostgreSQL server availability for all connections defined in .pgpass:
+
+    pgpass pgready --conn-id=".*" --all
+    pgpass pgready --conn-id=".*" --all | bash
+
   To generate an arbitrary string for a connection ID:
 
     pgpass prepare '\`\${conn.database}\`' --conn-id="GITLAB"
@@ -64,11 +69,13 @@ Help:
     You can use is like this:
 
       psql \`pgpass psql-fmt --conn-id="GITLAB"\`
+      pg_isready \`pgpass psql-fmt --conn-id="GITLAB"\`
       pgcenter top \`pgpass psql-fmt --conn-id="GITLAB"\`
 
   To generate psql or pgcenter commands that you can use as-is:
 
     pgpass psql --conn-id="GITLAB"
+    pgpass pgready --conn-id="GITLAB"
     pgpass pgcenter --conn-id="GITLAB"
 
   To generate env vars for all pgpass connections using default naming convetion:
@@ -112,6 +119,7 @@ interface Arguments {
   readonly psql?: boolean;
   readonly "psql-fmt"?: boolean;
   readonly pgcenter?: boolean;
+  readonly pgready?: boolean;
   readonly url?: boolean;
 
   readonly "--all": boolean;
@@ -127,10 +135,10 @@ try {
   args.connMatchers = args["--conn-id"] && args["--conn-id"].length > 0
     ? (args["--conn-id"].map((re) => new RegExp(re)))
     : undefined;
-  if (args["psql-fmt"] || args.psql || args.pgcenter) {
+  if (args["psql-fmt"] || args.psql || args.pgcenter || args.pgready) {
     args.prepareFormat = (conn: Connection) =>
       // deno-fmt-ignore
-      `${args["psql-fmt"] ? '' : args.psql ? 'psql' : 'pgcenter top'} -h ${conn.host} -p ${conn.port} -d ${conn.database} -U ${conn.username}`;
+      `${args["psql-fmt"] ? '' : args.psql ? 'psql' : (args.pgready ? 'pg_isready' : 'pgcenter top')} -h ${conn.host} -p ${conn.port} -d ${conn.database} -U ${conn.username}`;
   }
   if (args.url) {
     args.prepareFormat = (conn: Connection) =>
