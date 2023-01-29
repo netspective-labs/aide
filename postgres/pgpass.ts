@@ -10,7 +10,7 @@ import { Connection, parse } from "./pgpass-parse.ts";
 //       trusted machines so be careful. Find a string replacement library to
 //       upgrade later.
 
-const version = "0.1.3";
+const version = "1.0.0";
 const cmd = "pgpass";
 const pgPassFile = path.join(`${Deno.env.get("HOME")}`, ".pgpass");
 const doc = `
