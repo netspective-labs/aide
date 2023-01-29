@@ -1,6 +1,6 @@
 import * as path from "https://deno.land/std@0.173.0/path/mod.ts";
 import * as colors from "https://deno.land/std@0.173.0/fmt/colors.ts";
-import "https://deno.land/x/dzx@0.4.0/mod.ts";
+import { $, $o } from "https://deno.land/x/dzx@0.4.0/mod.ts";
 import * as core from "./core.ts";
 import * as dt from "./doctor.ts";
 import * as ws from "../text/whitespace.ts";
