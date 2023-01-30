@@ -33,8 +33,8 @@ includes a line like
 
 - `id`: unique ID where "XYZ" will be used by pgpass.ts to identify connection
   (required)
-- `description`: human=friendly elaboration of purpose (optional)
-- `boundary`: human=friendly name of network or location of the connection
+- `description`: human-friendly elaboration of purpose (optional)
+- `boundary`: human-friendly name of network or location of the connection
   (optional)
 
 ### `pgpass` binary installation
