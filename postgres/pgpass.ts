@@ -141,9 +141,7 @@ try {
       `${args["psql-fmt"] ? '' : args.psql ? 'psql' : (args.pgready ? 'pg_isready' : 'pgcenter top')} -h ${conn.host} -p ${conn.port} -d ${conn.database} -U ${conn.username}`;
   }
   if (args.url) {
-    args.prepareFormat = (conn: Connection) =>
-      // deno-fmt-ignore
-      `postgres://${conn.username}:${conn.password}@${conn.host}:${conn.port}/${conn.database}`;
+    args.prepareFormat = (conn: Connection) => conn.connURL;
   }
   if (args.prepare && args["<js-eval-expr>"]) {
     // deno-lint-ignore no-unused-vars

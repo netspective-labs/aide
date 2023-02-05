@@ -2,6 +2,8 @@ import JSON5 from "npm:json5";
 import { z } from "https://deno.land/x/zod@v3.20.2/mod.ts";
 
 export const connectionDescriptorSchema = z.object({
+  vendor: z.string().optional().default("PostgreSQL"),
+  provenance: z.string().optional().default(".pgpass"),
   id: z.string(),
   description: z.optional(z.string()),
   boundary: z.optional(z.string()),

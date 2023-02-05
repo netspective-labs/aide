@@ -15,6 +15,8 @@ Deno.test("parse pgpass.golden", async () => {
     {
       index: 0,
       connDescr: {
+        vendor: "PostgreSQL",
+        provenance: ".pgpass",
         id: "MY_SPECIAL_DB",
         description: "Human-friendly description of database",
         boundary: "Network",
@@ -32,6 +34,8 @@ Deno.test("parse pgpass.golden", async () => {
     {
       index: 1,
       connDescr: {
+        vendor: "PostgreSQL",
+        provenance: ".pgpass",
         id: "MY_SPECIAL_DB2",
         description: "Human-friendly description of database 2",
         boundary: "Network",
