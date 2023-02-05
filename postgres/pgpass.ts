@@ -22,6 +22,7 @@ Usage:
   ${cmd} prepare <js-eval-expr> --conn-id=<matcher>... [--all] [--src=<file>]
   ${cmd} (psql-fmt|psql|pgcenter|pgready) --conn-id=<matcher>... [--all] [--src=<file>]
   ${cmd} url --conn-id=<matcher>... [--all] [--src=<file>]
+  ${cmd} urls-dict-json [--src=<file>]
   ${cmd} test [--src=<file>]
   ${cmd} inspect [--src=<file>] [--mask-password] [--json]
   ${cmd} -h | --help
@@ -54,6 +55,19 @@ Help:
 
     pgpass pgready --conn-id=".*" --all
     pgpass pgready --conn-id=".*" --all | bash
+
+  To slurp all the .pgpass entries into a single easy to use dictionary for JSON parsing:
+
+    pgpass.ts urls-dict-json
+    pgpass.ts urls-dict-json | jq
+
+  The easiest way to pass all the content into an app is to add this to .envrc:
+
+    export PGPASS_CONTENT_JSON=\`pgpass inspect --json\`
+
+  The easiest way to pass all the connections as a single object:
+
+    export PGPASS_CONNURLS_JSON=\`pgpass urls-dict-json\`
 
   To generate an arbitrary string for a connection ID:
 
@@ -120,7 +134,9 @@ interface Arguments {
   readonly "psql-fmt"?: boolean;
   readonly pgcenter?: boolean;
   readonly pgready?: boolean;
+
   readonly url?: boolean;
+  readonly "urls-dict-json"?: boolean;
 
   readonly "--all": boolean;
 
@@ -144,6 +160,7 @@ try {
     args.prepareFormat = (conn: Connection) => conn.connURL;
   }
   if (args.prepare && args["<js-eval-expr>"]) {
+    // "conn" param must be available because the eval string might need it
     // deno-lint-ignore no-unused-vars
     args.prepareFormat = (conn: Connection) => {
       return eval(args["<js-eval-expr>"]!);
@@ -186,6 +203,15 @@ if (args.inspect) {
       ? `${conn.connDescr.id} ${conn.connDescr.description} ${`[${conn.host}:${conn.port} ${conn.username}@${conn.database}]`}`
       : `${c.brightYellow(conn.connDescr.id)} ${conn.connDescr.description} ${c.dim(`[${conn.host}:${conn.port} ${conn.username}@${conn.database}]`)}`);
   }
+} else if (args["urls-dict-json"]) {
+  console.log(
+    JSON.stringify(
+      conns.reduce((result, conn) => ({
+        ...result,
+        [conn.connDescr.id]: conn.connURL,
+      }), {}),
+    ),
+  );
 } else if (args.env) {
   const varNameFmt = args["--var-name"] ?? "`${conn.connDescr.id}_${varName}`";
   const exp = args["--no-export"] ? "" : "export ";
