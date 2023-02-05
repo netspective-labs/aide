@@ -25,6 +25,8 @@ Deno.test("parse pgpass.golden", async () => {
       database: "pgDB_name",
       username: "pgDB_username",
       password: "sup3rSecure!",
+      connURL:
+        "postgres://pgDB_username:sup3rSecure!@192.168.2.24:5432/pgDB_name",
       srcLineNumber: 35,
     },
     {
@@ -40,6 +42,8 @@ Deno.test("parse pgpass.golden", async () => {
       database: "pgDB2_name",
       username: "pgDB2_username",
       password: "sup3rSecure!",
+      connURL:
+        "postgres://pgDB2_username:sup3rSecure!@192.168.2.24:5033/pgDB2_name",
       srcLineNumber: 38,
     },
   ]);

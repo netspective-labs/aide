@@ -9,6 +9,9 @@ export const connectionDescriptorSchema = z.object({
 });
 export type ConnectionDescriptor = z.infer<typeof connectionDescriptorSchema>;
 
+// to test this RegExp, you can use https://regex101.com/ REPL
+export const pgConnUrlPattern =
+  /^postgres.*?:\/\/[^:]*(:[^@]*)?@[^:]*:[^\/]*\/.*/;
 export const connectionSchema = z.object({
   index: z.number(),
   connDescr: z.object(connectionDescriptorSchema.shape),
@@ -17,6 +20,7 @@ export const connectionSchema = z.object({
   database: z.string(),
   username: z.string(),
   password: z.string(),
+  connURL: z.string().regex(pgConnUrlPattern),
   srcLineNumber: z.number(),
 });
 export type Connection = z.infer<typeof connectionSchema>;
@@ -89,6 +93,8 @@ export async function parse(
       try {
         let [host, port, database, username, password] = line.split(":");
         if (options?.maskPassword) password = options.maskPassword(password);
+        const connURL =
+          `postgres://${username}:${password}@${host}:${port}/${database}`;
         const potentialConn = {
           index: conns.length,
           connDescr: activeConnDescr,
@@ -97,6 +103,7 @@ export async function parse(
           database,
           username,
           password,
+          connURL,
           srcLineNumber,
         };
         const conn = connectionSchema.parse(potentialConn);
