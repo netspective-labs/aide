@@ -10,7 +10,7 @@ import { Connection, parse } from "./pgpass-parse.ts";
 //       trusted machines so be careful. Find a string replacement library to
 //       upgrade later.
 
-const version = "1.0.0";
+const version = "1.0.1";
 const cmd = "pgpass";
 const pgPassFile = path.join(`${Deno.env.get("HOME")}`, ".pgpass");
 const doc = `
@@ -58,8 +58,8 @@ Help:
 
   To slurp all the .pgpass entries into a single easy to use dictionary for JSON parsing:
 
-    pgpass.ts urls-dict-json
-    pgpass.ts urls-dict-json | jq
+    pgpass urls-dict-json
+    pgpass urls-dict-json | jq
 
   The easiest way to pass all the content into an app is to add this to .envrc:
 
