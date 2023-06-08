@@ -1,3 +1,8 @@
+# IMPORTANT: this module is left here for historical reasons but should be treated as an archive
+
+The new location for the library is
+https://github.com/netspective-labs/sql-aide/lib/postgres.
+
 # PostgreSQL Aide
 
 - `pgpass` module provides helpers for managing PostgreSQL connection
